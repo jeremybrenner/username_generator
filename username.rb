@@ -17,10 +17,31 @@ def generate_username3 (*allArgs)
 	return alphaName + year[-2..-1]
 end
 
-priv_level = ["user", "seller", "manager", "admin"]
 
-def generate_username4(userName, privlage = 0)
-	privlage = Hash.new 
+
+def check_privilege (level=0)
+	priv_level = ["user", "seller", "manager", "admin"]
+	priv_level[level]
+end
+
+def generate_username4(first, last, year, priv=0)
+	user = generate_username3(first,last,year)
+	if priv == 0 then return user end
+	check_privilege(priv) + "-" + user
 end
 
 
+def createAlias(user, id)
+	return user + "_" + id.to_s
+end
+
+def generate_username5(first, last, year)
+	users = []
+	id = 0
+	user = generate_username4(first, last, year)
+
+	unless users.include?(user) 
+		then users << user
+		return user
+	end
+end
